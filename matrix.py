@@ -37,7 +37,6 @@ class Matrix:
 
         return Matrix(result_data)
 
-    # ===========================
     def __mul__(self, other):
         if isinstance(self, type(other)):
             if self.col != other.row:
@@ -67,8 +66,6 @@ class Matrix:
                 result_data.append(row)
 
             return Matrix(result_data)
-
-    # ======================================
 
     def checkUpperTriangularMatrix(self):
         if self.col != self.row:
@@ -155,21 +152,47 @@ class Matrix:
 
         return Matrix(result_data)
 
+    def checkSymmetricMatrix(self):
+        if self.row != self.col:
+            return False
+
+        check = True
+        for i in range(0, self.row):
+            for j in range(0, self.col):
+                if self.data[i][j] != self.data[j][i]:
+                    check = False
+
+        return check
+    
+    def checkSkewSymmetricMatrix(self):
+        if self.row != self.col:
+            return False
+
+        check = True
+        for i in range(0, self.row):
+            for j in range(0, self.col):
+                if self.data[i][j] != self.data[j][i]:
+                    check = False
+
+        return check
+
     def printMatrix(self):
         for i in range(0, self.row):
             print(self.data[i])
 
-
-# Just check if the code works
-def main():
-    # with open('matrix.txt', 'r') as file:
-    #     numbers_list = file.read(list(map(int, input().split())))
-    #     print(numbers_list)
-    a = Matrix([[1, 2, 3], [4, 5, 6]])
-    b = Matrix([[1, 2, 3], [4, 5, 6]])
-    if Matrix.checkEqual(a,b):
-        print("YES")
+def typeMatrix(matrix):
+    if matrix.col != matrix.row:
+        print("This matrix is not a square matrix")
+    elif matrix.checkSymmetricMatrix():
+        print("This is a symmetric matrix")
+    elif matrix.checkStewSymmetricMatrix():
+        print("This is a stew-symmetric matrix")
     else:
-        print("NO")
+        print("This is just a square matrix")
+    
+
+def main():
+    a = Matrix([[1,2,-1],[2,-2,3],[-1,3,3]])
+    typeMatrix(a)
     
 main()
